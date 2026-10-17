@@ -7,7 +7,7 @@ Projektstart 17.10.2026. Die technische Analyse liegt unter `docs/analyse-notchi
 ## Stand
 
 - **Stufe 1 (fertig, 17.10.2026):** `hooks/notchi-crew-hook.py` zeigt jeden Subagenten als eigene Sitzung im Claude-Look. Label ist der `agent_type`.
-- **Stufe 2 (offen):** Issue und Pull Request bei Notchi für Sprite-Packs (Familie aus dem Payload, Bilder aus einem Ordner).
+- **Stufe 2 (läuft):** Issue bei Notchi eingereicht am 17.10.2026, https://github.com/sk-ruban/notchi/issues/140 (Sprite-Packs, Familie aus dem Payload, Bilder aus einem Ordner). Pull Request folgt nach Rückmeldung des Entwicklers.
 - **Stufe 3 (offen):** eigene Sprites je Agent (Sprite-Sheets 384 mal 64 Pixel, sechs Frames, Namensschema wie Notchi).
 
 ## Wie es funktioniert
