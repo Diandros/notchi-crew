@@ -33,7 +33,7 @@ Grundlage für notchi-crew. Zeilenangaben beziehen sich auf den Klon unter `~/De
 | `provider` | `claude` |
 | `session_id` | `"<eltern-id>:agent:<agent_id>"` |
 | `cwd` | `"<eltern-cwd>/<agent_type>"`, letzte Komponente wird Label |
-| `event` | `PreToolUse`/`PostToolUse` (working), `SubagentStop` (idle), danach `SessionEnd` (entfernen) |
+| `event` | `SubagentStart` wird als `UserPromptSubmit` gesendet (Sitzung entsteht sofort, working), `PreToolUse`/`PostToolUse` (working), `SubagentStop` (idle), danach `SessionEnd` (entfernen) |
 | `status` | `running_tool`/`processing` bzw. `waiting_for_input` |
 | `transcript_path` | leer |
 | `interactive` | `false` (keine Töne, kein Dateiwächter, keine Emotionsanalyse; `Services/SoundService.swift` Z. 20 bis 22, `NotchiStateMachine.swift` Z. 112 bis 123) |
