@@ -40,3 +40,7 @@ Der Installer kopiert das Skript nach `~/.claude/hooks/notchi-crew-hook.py` und 
 
 - `tests/hooklog/`: schneidet die Hook-Felder eines echten Claude-Code-Laufs mit.
 - Der Hook lässt sich ohne Notchi gegen einen Fake-Socket prüfen: `NOTCHI_SOCKET_PATH=<pfad>` setzen und Events per stdin einspeisen.
+
+## Lizenz
+
+MIT, siehe `LICENSE`. Notchi selbst steht unter GPL-3.0; abgeleitete Sprites in Phase 2 würden darunter fallen.
