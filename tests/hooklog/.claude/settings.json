@@ -1,0 +1,12 @@
+{
+  "hooks": {
+    "SessionStart": [{"hooks": [{"type": "command", "command": "python3 -I \"$CLAUDE_PROJECT_DIR/hooklog.py\""}]}],
+    "UserPromptSubmit": [{"hooks": [{"type": "command", "command": "python3 -I \"$CLAUDE_PROJECT_DIR/hooklog.py\""}]}],
+    "SubagentStart": [{"hooks": [{"type": "command", "command": "python3 -I \"$CLAUDE_PROJECT_DIR/hooklog.py\""}]}],
+    "PreToolUse": [{"matcher": "*", "hooks": [{"type": "command", "command": "python3 -I \"$CLAUDE_PROJECT_DIR/hooklog.py\""}]}],
+    "PostToolUse": [{"matcher": "*", "hooks": [{"type": "command", "command": "python3 -I \"$CLAUDE_PROJECT_DIR/hooklog.py\""}]}],
+    "SubagentStop": [{"hooks": [{"type": "command", "command": "python3 -I \"$CLAUDE_PROJECT_DIR/hooklog.py\""}]}],
+    "Stop": [{"hooks": [{"type": "command", "command": "python3 -I \"$CLAUDE_PROJECT_DIR/hooklog.py\""}]}],
+    "SessionEnd": [{"hooks": [{"type": "command", "command": "python3 -I \"$CLAUDE_PROJECT_DIR/hooklog.py\""}]}]
+  }
+}
