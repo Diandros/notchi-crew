@@ -1,0 +1,28 @@
+Title: Feature request: custom sprite packs and sprite family from the hook payload (separate mascots for Claude Code subagents)
+
+Hi, thanks for Notchi, it is the cleanest of the notch companions I compared (installer, no telemetry, notarized builds).
+
+## What I would like
+
+Two small, backwards-compatible additions:
+
+1. Let the sprite family come from the hook payload. Today `NotchiSpriteFamily` is a closed enum (`claude`, `codex`, `devin`) derived one-to-one from `AgentProvider`. I would like an optional `sprite_family` string in the socket payload that overrides the provider default when present.
+2. Let Notchi look for sprite sheets in a user folder before falling back to the asset catalog, for example `~/Library/Application Support/Notchi/Sprites/<family>_<task>_<emotion>.png`, using the same naming scheme and sheet format (64 px frames side by side) as the bundled sprites. Missing files fall through the existing resolution chain, so a pack only needs the sheets it wants to override.
+
+## Why
+
+Claude Code fires hooks inside subagents and tags them with `agent_id` and `agent_type` (hooks reference: common input fields). I use three custom subagents (a researcher, a writer, an editor) from an Obsidian plugin built on the Agent SDK, and I want each of them to show up as its own character on the island while it runs.
+
+The first half already works without touching Notchi (https://github.com/Diandros/notchi-crew): an extra hook script next to `notchi-hook.sh` sends subagent events with a synthetic `session_id` (`<parent>:agent:<agent_id>`) and a `cwd` whose last path component is the agent name, so Notchi creates a separate session labelled e.g. `deep-researcher #1`, and a delayed `SessionEnd` removes it again. It survives your installer because the installer only touches entries containing `notchi-hook.sh`. The second half, giving each agent its own look, is impossible from the outside: sprites come exclusively from the asset catalog and the family is bound to the provider.
+
+Borrowing the Codex or Devin family for a subagent is not a workaround: the Codex adapter drops sessions without a transcript path and starts process monitoring, Devin has a reduced event set, and both flip `lastUsedAgentProvider`, which changes the launch wave and the usage ring.
+
+## Rough shape of the change
+
+From reading the code, I think it is around 150 to 200 lines in `NotchiState.swift` (family as a string wrapper, file lookup in `probeSpriteSheetImage`, cache key), `SpriteSheetView.swift` (`Image(nsImage:)`), `HookEvent.swift` and `SessionData.swift` (carry the family), `SessionStore.swift` and `ClaudeProviderAdapter.swift` (pass it through), `NotchContentView.swift` (`contentAcceptsSprite`, launch wave) and `notchi-hook.sh` (forward `agent_type`), plus tests. Everything stays as it is when the payload has no `sprite_family` and the folder does not exist.
+
+I am happy to open a PR for this if you are open to the idea, and to follow whatever shape you prefer (field name, folder location, whether `notchi-hook.sh` should forward `agent_type` itself or leave that to external hooks).
+
+## Environment
+
+Notchi 1.2.7, macOS 27.0.1, Claude Code 2.1.296.
